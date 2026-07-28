@@ -87,3 +87,14 @@ python main.py
 You can customize global settings in [config.py](file:///d:/AI%20Study/python/dns_lookup/config.py):
 * `DEFAULT_TIMEOUT`: Timeout duration in seconds for requests (default: `5`).
 * `DEFAULT_DNS_SERVER`: Specific DNS resolver server to query (default: `None` - uses system default resolver).
+
+
+## Screenshots
+
+### DNS Lookup
+
+![DNS Lookup](screenshots/dns_lookup.png)
+
+### WHOIS Lookup
+
+![WHOIS Lookup](screenshots/whois_lookup.png)
