@@ -93,7 +93,7 @@ You can customize global settings in [config.py](file:///d:/AI%20Study/python/dn
 
 ### DNS Lookup
 
-![DNS Lookup](screenshots/dns_lookup.png)
+![DNS Lookup](screenshots/DNS_Lookup.png)
 
 ### Reverse DNS Lookup
 
