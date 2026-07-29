@@ -3,6 +3,9 @@ from modules.reverse_lookup import ReverseLookup
 from modules.response_time import DNSResponseTime
 from modules.whois_lookup import WhoisLookup
 from modules.dnssec import DNSSEC
+from modules.export_json import Export
+
+from rich.console import Console
 
 
 class DNSTool:
@@ -13,6 +16,7 @@ class DNSTool:
         self.response_time = DNSResponseTime()
         self.whois_lookup = WhoisLookup()
         self.dnssec = DNSSEC()
+        self.exporter = Export()
 
     def menu(self):
         while True:
@@ -47,6 +51,17 @@ class DNSTool:
 
             else:
                 print("Invalid Choice")
+
+    def _export_result(self, data, prefix, domain=None):
+        filename = self.exporter.build_filename(prefix, domain)
+        result = self.exporter.export_json(data, filename)
+
+        if result.get("status") == "success":
+            print(f"Exported to {result['file']}")
+        else:
+            print(f"Export failed: {result.get('message', 'Unknown error')}")
+
+        return result
 
     def dns_lookup_menu(self):
         domain = input("Domain: ").strip()
@@ -84,14 +99,16 @@ class DNSTool:
 
         result = self.dns_lookup.lookup(domain, record_map[choice])
 
-        print(result)
+        self._export_result(result, "dns_lookup", domain)
+        Console().print(self.dns_lookup.table, justify="center", style="bold green")
 
     def reverse_lookup_menu(self):
         ip = input("IP Address: ").strip()
 
         result = self.reverse_lookup.lookup(ip)
 
-        print(result)
+        self._export_result(result, "reverse_lookup", ip)
+        Console().print(self.reverse_lookup.table, justify="center", style="bold green")
 
     def response_time_menu(self):
         domain = input("Domain: ").strip()
@@ -132,21 +149,24 @@ class DNSTool:
             record_map[choice]
         )
 
-        print(result)
+        self._export_result(result, "response_time", domain)
+        Console().print(result, justify="center", style="bold green")
 
     def whois_lookup_menu(self):
         domain = input("Domain: ").strip()
 
         result = self.whois_lookup.lookup(domain)
 
-        print(result)
+        self._export_result(result, "whois_lookup", domain)
+        Console().print(self.whois_lookup.table, justify="center", style="bold green")
 
     def dnssec_menu(self):
         domain = input("Domain: ").strip()
 
         result = self.dnssec.check(domain)
 
-        print(result)
+        self._export_result(result, "dnssec", domain)
+        Console().print(self.dnssec.table, justify="center", style="bold green")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,6 @@
-import os
 import json
+import os
+import re
 
 
 class Export:
@@ -18,6 +19,12 @@ class Export:
 
         except Exception as e:
             return self._handle_error(e)
+
+    def build_filename(self, prefix, domain=None):
+        safe_domain = re.sub(r"[^A-Za-z0-9._-]+", "_", domain or "result").strip("._")
+        if not safe_domain:
+            safe_domain = "result"
+        return f"{prefix}_{safe_domain}.json"
 
     def _create_output_directory(self):
         output_dir = "output"

@@ -93,8 +93,20 @@ You can customize global settings in [config.py](file:///d:/AI%20Study/python/dn
 
 ### DNS Lookup
 
-![DNS Lookup](screenshots/DNS_Lookup.png)
+![DNS Lookup](screenshots/dns_lookup.png)
+
+### Reverse DNS Lookup
+
+![Reverse DNS Lookup](screenshots/reverse_dns_lookup.png)
+
+### DNS Response Time
+
+![DNS Response Time](screenshots/dns_response_time.png)
 
 ### WHOIS Lookup
 
-![WHOIS Lookup](screenshots/whois_lookup.png)
+![WHOIS Lookup](screenshots/whoois_lookup.png)
+
+### DNSSEC Check
+
+![DNSSEC Check](screenshots/dnssec_check.png)

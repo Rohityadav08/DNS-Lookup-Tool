@@ -1,9 +1,15 @@
 import dns.resolver
+from rich.table import Table
 
 
 class DNSLookup:
     def __init__(self):
         self.output = {}
+        self.table = Table(title="DNS Lookup")
+        self.table.add_column("Domain", style="cyan", no_wrap=True)
+        self.table.add_column("Record Type", style="magenta")
+        self.table.add_column("Value", style="green")
+        self.table.add_column("Error", style="red")
 
     def lookup(self, domain, record_type):
         try:
@@ -18,6 +24,7 @@ class DNSLookup:
             for ans in answers:
                 self.output[domain][record_type].append(str(ans))
 
+            self.table.add_row(domain, record_type, ", ".join(self.output[domain][record_type]), "")
             return self.output
         
         except Exception as e:
